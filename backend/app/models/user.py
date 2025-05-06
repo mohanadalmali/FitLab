@@ -1,23 +1,6 @@
 from app import db
 from sqlalchemy import Enum
-import enum
-
-class GenderEnum(enum.Enum):
-    Male = "Male"
-    Female = "Female"
-    Other = "Other"
-
-class GoalEnum(enum.Enum):
-    lose_weight = "lose_weight"
-    gain_weight = "gain_weight"
-    maintain_weight = "maintain_weight"
-
-class ActivityLevelEnum(enum.Enum):
-    sedentary = "sedentary"
-    lightly_active = "lightly_active"
-    moderately_active = "moderately_active"
-    very_active = "very_active"
-    super_active = "super_active"
+from app.models.enums import GenderEnum, GoalEnum, ActivityLevelEnum  # Enum'ları buradan import et
 
 class User(db.Model):
     __tablename__ = 'Users'
@@ -29,11 +12,11 @@ class User(db.Model):
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
     birth_date = db.Column(db.Date)
-    gender = db.Column(Enum(GenderEnum))
-    weight = db.Column(db.Numeric(5,2))
-    height = db.Column(db.Numeric(5,2))
-    goal = db.Column(Enum(GoalEnum), nullable=False)
-    activity_level = db.Column(Enum(ActivityLevelEnum), default=ActivityLevelEnum.sedentary)
+    gender = db.Column(Enum(GenderEnum))  # Enum'lar buradan geliyor
+    weight = db.Column(db.Numeric(5, 2))
+    height = db.Column(db.Numeric(5, 2))
+    goal = db.Column(Enum(GoalEnum), nullable=False)  # Enum'lar buradan geliyor
+    activity_level = db.Column(Enum(ActivityLevelEnum), default=ActivityLevelEnum.Sedentary)
     profile_picture = db.Column(db.String(255))
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, server_default=db.func.now(), onupdate=db.func.now())

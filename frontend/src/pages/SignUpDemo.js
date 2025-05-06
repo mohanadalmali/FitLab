@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col, Alert, Card } from 'react-bootstrap';
 import api from '../services/api';
 
-
 const SignUpPage = () => {
   const [formData, setFormData] = useState({
     username: '',
@@ -20,6 +19,7 @@ const SignUpPage = () => {
   });
 
   const [message, setMessage] = useState({ type: '', text: '' });
+  const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,8 +36,27 @@ const SignUpPage = () => {
     }));
   };
 
+  const validateForm = () => {
+    let formErrors = {};
+    if (!formData.username) formErrors.username = 'Kullanıcı adı zorunludur';
+    if (!formData.email) formErrors.email = 'E-posta zorunludur';
+    if (!formData.password) formErrors.password = 'Şifre zorunludur';
+    if (!formData.weight) formErrors.weight = 'Ağırlık zorunludur';
+    if (!formData.height) formErrors.height = 'Boy zorunludur';
+    if (formData.password && formData.password.length < 6)
+      formErrors.password = 'Şifre en az 6 karakter olmalıdır';
+
+    setErrors(formErrors);
+    return Object.keys(formErrors).length === 0;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateForm()) {
+      setMessage({ type: 'danger', text: 'Lütfen tüm alanları doğru doldurduğunuzdan emin olun.' });
+      return;
+    }
 
     const formDataToSend = new FormData();
     for (const key in formData) {
@@ -49,6 +68,20 @@ const SignUpPage = () => {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       setMessage({ type: 'success', text: 'Kayıt başarılı!' });
+      setFormData({
+        username: '',
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        birthDate: '',
+        gender: 'Male',
+        weight: '',
+        height: '',
+        goal: 'lose_weight',
+        activityLevel: 'sedentary',
+        profilePicture: null,
+      });
     } catch (error) {
       setMessage({ type: 'danger', text: 'Kayıt sırasında bir hata oluştu.' });
     }
@@ -67,32 +100,71 @@ const SignUpPage = () => {
                   <Col md={6}>
                     <Form.Group controlId="username">
                       <Form.Label>Kullanıcı Adı</Form.Label>
-                      <Form.Control type="text" name="username" value={formData.username} onChange={handleChange} required />
+                      <Form.Control
+                        type="text"
+                        name="username"
+                        value={formData.username}
+                        onChange={handleChange}
+                        isInvalid={!!errors.username}
+                        required
+                      />
+                      <Form.Control.Feedback type="invalid">{errors.username}</Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group controlId="firstName">
                       <Form.Label>Ad</Form.Label>
-                      <Form.Control type="text" name="firstName" value={formData.firstName} onChange={handleChange} />
+                      <Form.Control
+                        type="text"
+                        name="firstName"
+                        value={formData.firstName}
+                        onChange={handleChange}
+                      />
                     </Form.Group>
 
                     <Form.Group controlId="lastName">
                       <Form.Label>Soyad</Form.Label>
-                      <Form.Control type="text" name="lastName" value={formData.lastName} onChange={handleChange} />
+                      <Form.Control
+                        type="text"
+                        name="lastName"
+                        value={formData.lastName}
+                        onChange={handleChange}
+                      />
                     </Form.Group>
 
                     <Form.Group controlId="email">
                       <Form.Label>E-posta</Form.Label>
-                      <Form.Control type="email" name="email" value={formData.email} onChange={handleChange} required />
+                      <Form.Control
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        isInvalid={!!errors.email}
+                        required
+                      />
+                      <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group controlId="password">
                       <Form.Label>Şifre</Form.Label>
-                      <Form.Control type="password" name="password" value={formData.password} onChange={handleChange} required />
+                      <Form.Control
+                        type="password"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        isInvalid={!!errors.password}
+                        required
+                      />
+                      <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group controlId="birthDate">
                       <Form.Label>Doğum Tarihi</Form.Label>
-                      <Form.Control type="date" name="birthDate" value={formData.birthDate} onChange={handleChange} />
+                      <Form.Control
+                        type="date"
+                        name="birthDate"
+                        value={formData.birthDate}
+                        onChange={handleChange}
+                      />
                     </Form.Group>
                   </Col>
 
@@ -108,12 +180,26 @@ const SignUpPage = () => {
 
                     <Form.Group controlId="weight">
                       <Form.Label>Ağırlık (kg)</Form.Label>
-                      <Form.Control type="number" name="weight" value={formData.weight} onChange={handleChange} />
+                      <Form.Control
+                        type="number"
+                        name="weight"
+                        value={formData.weight}
+                        onChange={handleChange}
+                        isInvalid={!!errors.weight}
+                      />
+                      <Form.Control.Feedback type="invalid">{errors.weight}</Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group controlId="height">
                       <Form.Label>Boy (cm)</Form.Label>
-                      <Form.Control type="number" name="height" value={formData.height} onChange={handleChange} />
+                      <Form.Control
+                        type="number"
+                        name="height"
+                        value={formData.height}
+                        onChange={handleChange}
+                        isInvalid={!!errors.height}
+                      />
+                      <Form.Control.Feedback type="invalid">{errors.height}</Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group controlId="goal">

@@ -59,7 +59,7 @@ const LoginPage = () => {
 
           <div className="mt-3 text-center">
             <span>Hesabınız yok mu? </span>
-            <Link to="/signup">Kayıt Olun</Link>
+            <Link to="http://localhost:3000/signup">Kayıt Olun</Link>
           </div>
         </Col>
       </Row>

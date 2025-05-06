@@ -1,42 +1,40 @@
-// ExercisePage.js
 import React, { useState } from 'react';
-import { Container, Row, Col} from 'react-bootstrap';
+import ExerciseCard from '../components/ExerciseCard';
 import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Container, Row, Col } from 'react-bootstrap';
 
-// Egzersiz kartı bileşeni
-const ExerciseCard = ({ title, image, description, id }) => (
-  <div className="col-md-4 mb-4">
-    <div className="card h-100 shadow-sm">
-      <img src={image} className="card-img-top" alt={title} style={{ height: '200px', objectFit: 'cover' }} />
-      <div className="card-body d-flex flex-column">
-        <h5 className="card-title">{title}</h5>
-        <p className="card-text">{description}</p>
-        <Link to={`/exercise/${id}`} className="btn btn-primary mt-auto">
-          Detayları Gör
-        </Link>
-      </div>
-    </div>
-  </div>
-);
+const exercises = [
+  {
+    id: 1,
+    title: "Kardiyo Egzersizleri",
+    image: "https://source.unsplash.com/featured/?cardio",
+    description: "Kalp sağlığını geliştiren ve yağ yakımını hızlandıran egzersizler."
+  },
+  {
+    id: 2,
+    title: "Ağırlık Antrenmanı",
+    image: "https://source.unsplash.com/featured/?weightlifting",
+    description: "Kas kütlesi ve güç artırmaya yönelik ağırlık egzersizleri."
+  },
+  {
+    id: 3,
+    title: "Esneme ve Yoga",
+    image: "https://source.unsplash.com/featured/?yoga",
+    description: "Esneklik ve dengeyi artıran, zihni rahatlatan egzersizler."
+  }
+];
 
 const ExercisePage = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
-  const exercises = [
-    { id: 1, title: "Squat", image: "/images/squat.jpg", description: "Bir bacak egzersizi." },
-    { id: 2, title: "Push-Up", image: "/images/pushup.jpg", description: "Üst vücut için bir egzersiz." },
-    { id: 3, title: "Lunges", image: "/images/lunges.jpg", description: "Bacak ve kalça egzersizi." },
-  ];
-
-  const filteredExercises = exercises.filter(ex =>
-    ex.title.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredExercises = exercises.filter(exercise =>
+    exercise.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <div className="container">
       <h2 className="mb-4 text-center position-relative py-5" style={{
-        background: 'linear-gradient(to right, #ff416c, #ff4b2b)',
+        background: 'linear-gradient(to right, #ff6a00, #ff3f00)',
         color: 'white',
         fontSize: '2.5rem',
         fontWeight: 'bold',
@@ -116,16 +114,17 @@ const ExercisePage = () => {
               </a>
             </div>
           </div>
-
+          
           <div className="text-center small mt-4 border-top pt-3 text-light opacity-75">
             © 2025 FitLab | Sağlıklı yaşa, güçlü ol!
           </div>
         </Container>
       </footer>
 
+      {/* Footer CSS */}
       <style>{`
         .footer-contact {
-          background: linear-gradient(to right, #ff416c, #ff4b2b);
+          background: linear-gradient(to right, #ff6a00, #ff3f00);
           border-top-left-radius: 2rem;
           border-top-right-radius: 2rem;
         }
@@ -142,7 +141,7 @@ const ExercisePage = () => {
         .social-media-links a:hover {
           color: #ff416c;
         }
-      `}</style> 
+      `}</style>
     </div>
   );
 };

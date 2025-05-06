@@ -8,3 +8,4 @@ from .progress_tracking import ProgressTracking
 from .blog_post import BlogPost
 from .blog_post_image import BlogPostImage
 from .blog_comment import BlogComment
+from .enums import GenderEnum, GoalEnum, ActivityLevelEnum

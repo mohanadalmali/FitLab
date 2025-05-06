@@ -1,4 +1,3 @@
-// DietPage.js
 import React, { useState } from 'react';
 import DietCard from '../components/DietCard';
 import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
@@ -96,6 +95,7 @@ const DietPage = () => {
               <p><strong>Adres:</strong> İstanbul, Türkiye</p>
             </Col>
           </Row>
+
           {/* Sosyal Medya Bağlantıları */}
           <div className="social-media-links text-center mt-4">
             <h5>Sosyal Medyada Bizi Takip Edin</h5>
@@ -114,6 +114,7 @@ const DietPage = () => {
               </a>
             </div>
           </div>
+          
           <div className="text-center small mt-4 border-top pt-3 text-light opacity-75">
             © 2025 FitLab | Sağlıklı yaşa, güçlü ol!
           </div>
@@ -137,7 +138,7 @@ const DietPage = () => {
         .footer-contact a:hover {
           text-decoration: underline;
         }
-          .social-media-links a:hover {
+        .social-media-links a:hover {
           color: #ff416c;
         }
       `}</style>

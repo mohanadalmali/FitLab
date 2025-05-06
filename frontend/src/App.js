@@ -4,14 +4,14 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Homepage from './pages/HomePage';
 import DietPage from './pages/DietPage';
-import ExercisePage from './pages/ExercisePage';
 import BlogPage from './pages/BlogPage';
 import ContactPage from './pages/ContactPage';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import DietDetailPage from './pages/DietDetailPage';
-import ExerciseDetail from './pages/ExerciseDetail';
 import BlogDetailPage from './pages/BlogDetailPage';
+import ExercisePage from './pages/ExercisePage';
+import ExerciseDetail from './pages/ExerciseDetailPage';
 import './App.css';
 
 
@@ -28,8 +28,8 @@ function App() {
 
   return (
     <Router>
+      
       <div className="container mt-5">
-
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/diet" element={<DietPage />} />
